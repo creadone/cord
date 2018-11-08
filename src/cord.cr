@@ -1,11 +1,11 @@
 require "pool/connection"
 require "./reconnect.cr"
 
-module Сord
+module Cord
   VERSION = "0.0.1"
 
   class Connection
-    @cp : ConnectionPool(Сord::Reconnect)
+    @cp : ConnectionPool(Cord::Reconnect)
 
     def initialize(@host : String = "localhost",
                    @port : Int32 = 6379,
@@ -13,8 +13,8 @@ module Сord
                    @password : String? = nil,
                    @timeout : Time::Span = 1.second,
                    @pool : Int32 = 10)
-      @cp = ConnectionPool(Сord::Reconnect).new(capacity: @pool) do
-        Сord::Reconnect.new(host: @host, port: @port, user: @user, password: @password)
+      @cp = ConnectionPool(Cord::Reconnect).new(capacity: @pool) do
+        Cord::Reconnect.new(host: @host, port: @port, user: @user, password: @password)
       end
     end
 

@@ -1,6 +1,6 @@
 require "tarantool"
 
-module Сord
+module Cord
   class Reconnect
 
     @client : Tarantool::Connection
