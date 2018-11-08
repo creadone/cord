@@ -1,0 +1,15 @@
+/docs/
+/lib/
+/bin/
+/.shards/
+*.dwarf
+*.retry
+
+# Mac OS
+.DS_Store
+
+# Stat log
+*.snap
+*.xlog
+*.log
+*.pid

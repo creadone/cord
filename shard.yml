@@ -1,0 +1,20 @@
+name: cord
+
+version: 0.0.1
+crystal: 0.26.1
+
+authors:
+  - Konstantin Makarchev kostya27@gmail.com
+  - Sergey Fedorov creadone@gmail.com
+
+description: |
+  Crystal shard for Tarantool with auto reconnect and connections pool based on original shard for Redis by kostya/redisoid but slightly adapted.
+
+dependencies:
+  pool:
+    github: ysbaddaden/pool
+  tarantool:
+    github: vladfaust/tarantool.cr
+    version: ~> 0.1.0
+
+license: MIT
