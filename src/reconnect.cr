@@ -5,13 +5,13 @@ module Cord
 
     @client : Tarantool::Connection
 
-    def initialize(@host = "localhost", @port = 6379, @user : String? = nil, @password : String? = nil)
-      @client = Tarantool::Connection.new(@host, @port, @user, @password)
+    def initialize(@host = "localhost", @port = 6379, @user : String? = nil, @password : String? = nil, @logger : Logger? = nil)
+      @client = Tarantool::Connection.new(host: @host, port: @port, user: @user, password: @password, logger: @logger)
     end
 
     def reconnect!
       @client.close rescue nil
-      @client = Tarantool::Connection.new(@host, @port, @user, @password)
+      @client = Tarantool::Connection.new(host: @host, port: @port, user: @user, password: @password, logger: @logger)
     end
 
     macro method_missing(call)
