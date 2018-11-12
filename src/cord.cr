@@ -2,7 +2,7 @@ require "pool/connection"
 require "./reconnect.cr"
 
 module Cord
-  VERSION = "0.0.2"
+  VERSION = "0.0.3"
 
   class Connection
     @cp : ConnectionPool(Cord::Reconnect)
@@ -12,9 +12,11 @@ module Cord
                    @user : String? = nil,
                    @password : String? = nil,
                    @timeout : Time::Span = 1.second,
-                   @pool : Int32 = 10)
+                   @pool : Int32 = 10,
+                   @logger : Logger = nil
+                   )
       @cp = ConnectionPool(Cord::Reconnect).new(capacity: @pool) do
-        Cord::Reconnect.new(host: @host, port: @port, user: @user, password: @password)
+        Cord::Reconnect.new(host: @host, port: @port, user: @user, password: @password, logger: @logger)
       end
     end
 
