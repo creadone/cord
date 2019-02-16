@@ -1,17 +1,17 @@
-require "tarantool"
-
 module Cord
   class Reconnect
-
-    @client : Tarantool::Connection
-
     def initialize(@host = "localhost", @port = 6379, @user : String? = nil, @password : String? = nil, @logger : Logger? = nil)
       @client = Tarantool::Connection.new(host: @host, port: @port, user: @user, password: @password, logger: @logger)
     end
 
     def reconnect!
-      @client.close rescue nil
-      @client = Tarantool::Connection.new(host: @host, port: @port, user: @user, password: @password, logger: @logger)
+      begin
+        @client = Tarantool::Connection.new(host: @host, port: @port, user: @user, password: @password, logger: @logger)
+      rescue
+        @logger.not_nil!.info("Trying reconnect to #{@host}")
+        sleep 3
+        reconnect!
+      end
     end
 
     macro method_missing(call)
@@ -21,9 +21,9 @@ module Cord
     private def safe_call
       yield
     rescue
+      @logger.not_nil!.fatal("Can't connect to #{@host}")
       reconnect!
       yield
     end
-
   end
 end

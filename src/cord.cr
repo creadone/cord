@@ -2,7 +2,7 @@ require "pool/connection"
 require "./reconnect.cr"
 
 module Cord
-  VERSION = "0.0.3"
+  VERSION = "0.0.4"
 
   class Connection
     @cp : ConnectionPool(Cord::Reconnect)
