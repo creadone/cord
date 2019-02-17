@@ -5,6 +5,7 @@ module Cord
     end
 
     def reconnect!
+      @client.close rescue nil
       begin
         @client = Tarantool::Connection.new(host: @host, port: @port, user: @user, password: @password, logger: @logger)
       rescue
